@@ -626,23 +626,24 @@ namespace xla
                                   include_features, "convolution_dim_numbers",
                                   source1.convolution_dimension_numbers());
 
-          // if (include_features & FEATURE_OP_NON_ZERO) {
-          //   out->push_back(FEATURIZE_SWITCH(
-          //       "feature_group_count",
-          //       static_cast<float>(source1.feature_group_count())));
-          //   out->push_back(
-          //       FEATURIZE_SWITCH("batch_group_count",
-          //                        static_cast<float>(source1.batch_group_count())));
-          //   FEATURIZE_DISPATCH_COND(FeaturizeSliceDimensions, include_features,
-          //                           "slice_dims", source1.slice_dimensions());
-          //   FEATURIZE_DISPATCH(FixedNumericSequenceFeatures<2>,
-          //                      "dynamic_slice_sizes",
-          //                      source1.dynamic_slice_sizes());
-          //   FEATURIZE_DISPATCH_COND(FeaturizePaddingConfig, include_features,
-          //                           "padding_config", source1.padding_config());
-          //   out->push_back(
-          //       FEATURIZE_SWITCH("is_stable", source1.is_stable() ? 1. : 0.));
-          // }
+          if (include_features & FEATURE_OP_NON_ZERO)
+          {
+            out->push_back(FEATURIZE_SWITCH(
+                "feature_group_count",
+                static_cast<float>(source1.feature_group_count())));
+            out->push_back(
+                FEATURIZE_SWITCH("batch_group_count",
+                                 static_cast<float>(source1.batch_group_count())));
+            FEATURIZE_DISPATCH_COND(FeaturizeSliceDimensions, include_features,
+                                    "slice_dims", source1.slice_dimensions());
+            FEATURIZE_DISPATCH(FixedNumericSequenceFeatures<2>,
+                               "dynamic_slice_sizes",
+                               source1.dynamic_slice_sizes());
+            FEATURIZE_DISPATCH_COND(FeaturizePaddingConfig, include_features,
+                                    "padding_config", source1.padding_config());
+            out->push_back(
+                FEATURIZE_SWITCH("is_stable", source1.is_stable() ? 1. : 0.));
+          }
 
           if (include_features & FEATURE_MODULE_NON_ZERO)
           {

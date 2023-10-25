@@ -30,7 +30,8 @@ namespace ml_lib {
 #define FEATURE_MODULE_NON_ZERO 1 << 3
 
 // Node features.
-const constexpr uint16_t kMinimalNodeFeatureCount = 113;
+// const constexpr uint16_t kMinimalNodeFeatureCount = 113;
+const constexpr uint16_t kMinimalNodeFeatureCount = 114;
 const constexpr uint16_t kOpLevelNonZeroNodeFeatureCount = 27;
 const constexpr uint16_t kModuleLevelNonZeroNodeFeatureCount = 29;
 
